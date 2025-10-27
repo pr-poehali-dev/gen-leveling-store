@@ -38,9 +38,7 @@ export default function ServicesPage({ services, onSubmitRequest }: ServicesPage
   return (
     <div className="space-y-8">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-          Прокачивание аккаунтов
-        </h1>
+        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">Услуги</h1>
         <p className="text-gray-600 text-lg">
           Выберите подходящую услугу и оставьте заявку
         </p>
