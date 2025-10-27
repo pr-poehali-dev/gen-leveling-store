@@ -206,40 +206,40 @@ function Index() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-cyan-50">
-      <nav className="bg-white/80 backdrop-blur-md border-b border-blue-100 sticky top-0 z-50">
+    <div className="min-h-screen bg-gradient-to-br from-purple-950 via-slate-900 to-purple-950">
+      <nav className="bg-slate-900/80 backdrop-blur-md border-b border-purple-500/30 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-              {settings.site_name}
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent animate-float">
+              ⚡ {settings.site_name}
             </h1>
-            <div className="flex gap-4">
+            <div className="flex gap-3">
               <button
                 onClick={() => setCurrentPage('home')}
-                className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                className={`px-5 py-2 rounded-xl font-semibold transition-all ${
                   currentPage === 'home'
-                    ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/30'
-                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+                    ? 'game-button text-white'
+                    : 'text-purple-300 hover:text-white hover:bg-purple-500/20 border border-purple-500/30'
                 }`}
               >
                 Главная
               </button>
               <button
                 onClick={() => setCurrentPage('services')}
-                className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                className={`px-5 py-2 rounded-xl font-semibold transition-all ${
                   currentPage === 'services'
-                    ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/30'
-                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+                    ? 'game-button text-white'
+                    : 'text-purple-300 hover:text-white hover:bg-purple-500/20 border border-purple-500/30'
                 }`}
               >
                 Услуги
               </button>
               <button
                 onClick={() => setCurrentPage('admin')}
-                className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                className={`px-5 py-2 rounded-xl font-semibold transition-all ${
                   currentPage === 'admin'
-                    ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/30'
-                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+                    ? 'game-button text-white'
+                    : 'text-purple-300 hover:text-white hover:bg-purple-500/20 border border-purple-500/30'
                 }`}
               >
                 Админ-панель

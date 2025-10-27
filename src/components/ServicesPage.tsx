@@ -36,51 +36,54 @@ export default function ServicesPage({ services, onSubmitRequest }: ServicesPage
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">Услуги</h1>
-        <p className="text-gray-600 text-lg">
+        <h1 className="text-5xl font-black mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent animate-float">
+          🎮 Услуги
+        </h1>
+        <p className="text-purple-200 text-xl">
           Выберите подходящую услугу и оставьте заявку
         </p>
       </div>
 
       {services.length === 0 ? (
-        <div className="bg-white rounded-2xl p-12 shadow-lg border border-blue-100 text-center">
-          <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Icon name="Package" className="text-blue-600" size={40} />
+        <div className="game-card rounded-3xl p-16 text-center animate-float">
+          <div className="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6 animate-glow">
+            <Icon name="Package" className="text-white" size={48} />
           </div>
-          <h3 className="text-2xl font-bold text-gray-800 mb-2">Услуги добавляются администратором</h3>
-          <p className="text-gray-600">Скоро здесь появятся доступные услуги</p>
+          <h3 className="text-3xl font-bold text-purple-100 mb-3">📦 Услуги добавляются администратором</h3>
+          <p className="text-purple-300 text-lg">Скоро здесь появятся доступные услуги</p>
         </div>
       ) : (
-        <div className="grid md:grid-cols-2 gap-6">
-          {services.map((service) => (
+        <div className="grid md:grid-cols-2 gap-8">
+          {services.map((service, index) => (
             <div
               key={service.id}
-              className="bg-white rounded-2xl p-6 shadow-lg border border-blue-100 hover:shadow-xl transition-all"
+              className="game-card rounded-3xl p-8 animate-float"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="flex items-start justify-between mb-4">
-                <h3 className="text-xl font-bold text-gray-800">{service.title}</h3>
-                <span className="px-4 py-1 bg-blue-100 text-blue-600 rounded-full font-semibold">
+              <div className="flex items-start justify-between mb-6">
+                <h3 className="text-2xl font-bold text-purple-100">{service.title}</h3>
+                <span className="px-5 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-full font-bold text-lg shadow-lg">
                   {service.price}
                 </span>
               </div>
               
-              <p className="text-gray-600 mb-4">{service.description}</p>
+              <p className="text-purple-300 mb-6 text-lg leading-relaxed">{service.description}</p>
               
-              <div className="bg-blue-50 rounded-lg p-4 mb-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Icon name="CheckCircle2" className="text-blue-600" size={20} />
-                  <span className="font-semibold text-gray-800">Требования:</span>
+              <div className="bg-purple-900/30 rounded-2xl p-5 mb-6 border border-purple-500/30">
+                <div className="flex items-center gap-3 mb-3">
+                  <Icon name="CheckCircle2" className="text-cyan-400" size={24} />
+                  <span className="font-bold text-purple-100 text-lg">⚡ Требования:</span>
                 </div>
-                <p className="text-gray-600 text-sm ml-7">{service.requirements}</p>
+                <p className="text-purple-300 ml-9">{service.requirements}</p>
               </div>
 
               <Button
                 onClick={() => setSelectedService(service)}
-                className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:shadow-lg hover:scale-105 transition-all"
+                className="game-button w-full py-6 text-lg font-bold"
               >
-                Отправить запрос
+                📝 Отправить запрос
               </Button>
             </div>
           ))}
