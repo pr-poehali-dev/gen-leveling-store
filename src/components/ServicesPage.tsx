@@ -44,38 +44,48 @@ export default function ServicesPage({ services, onSubmitRequest }: ServicesPage
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
-        {services.map((service) => (
-          <div
-            key={service.id}
-            className="bg-white rounded-2xl p-6 shadow-lg border border-blue-100 hover:shadow-xl transition-all"
-          >
-            <div className="flex items-start justify-between mb-4">
-              <h3 className="text-xl font-bold text-gray-800">{service.title}</h3>
-              <span className="px-4 py-1 bg-blue-100 text-blue-600 rounded-full font-semibold">
-                {service.price}
-              </span>
-            </div>
-            
-            <p className="text-gray-600 mb-4">{service.description}</p>
-            
-            <div className="bg-blue-50 rounded-lg p-4 mb-4">
-              <div className="flex items-center gap-2 mb-2">
-                <Icon name="CheckCircle2" className="text-blue-600" size={20} />
-                <span className="font-semibold text-gray-800">Требования:</span>
-              </div>
-              <p className="text-gray-600 text-sm ml-7">{service.requirements}</p>
-            </div>
-
-            <Button
-              onClick={() => setSelectedService(service)}
-              className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:shadow-lg hover:scale-105 transition-all"
-            >
-              Отправить запрос
-            </Button>
+      {services.length === 0 ? (
+        <div className="bg-white rounded-2xl p-12 shadow-lg border border-blue-100 text-center">
+          <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Icon name="Package" className="text-blue-600" size={40} />
           </div>
-        ))}
-      </div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-2">Услуги добавляются администратором</h3>
+          <p className="text-gray-600">Скоро здесь появятся доступные услуги</p>
+        </div>
+      ) : (
+        <div className="grid md:grid-cols-2 gap-6">
+          {services.map((service) => (
+            <div
+              key={service.id}
+              className="bg-white rounded-2xl p-6 shadow-lg border border-blue-100 hover:shadow-xl transition-all"
+            >
+              <div className="flex items-start justify-between mb-4">
+                <h3 className="text-xl font-bold text-gray-800">{service.title}</h3>
+                <span className="px-4 py-1 bg-blue-100 text-blue-600 rounded-full font-semibold">
+                  {service.price}
+                </span>
+              </div>
+              
+              <p className="text-gray-600 mb-4">{service.description}</p>
+              
+              <div className="bg-blue-50 rounded-lg p-4 mb-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Icon name="CheckCircle2" className="text-blue-600" size={20} />
+                  <span className="font-semibold text-gray-800">Требования:</span>
+                </div>
+                <p className="text-gray-600 text-sm ml-7">{service.requirements}</p>
+              </div>
+
+              <Button
+                onClick={() => setSelectedService(service)}
+                className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:shadow-lg hover:scale-105 transition-all"
+              >
+                Отправить запрос
+              </Button>
+            </div>
+          ))}
+        </div>
+      )}
 
       <Dialog open={!!selectedService} onOpenChange={() => setSelectedService(null)}>
         <DialogContent className="sm:max-w-md">
