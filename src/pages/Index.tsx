@@ -232,7 +232,7 @@ function Index() {
                     : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
                 }`}
               >
-                Прокачивание аккаунтов
+                Услуги
               </button>
               <button
                 onClick={() => setCurrentPage('admin')}
