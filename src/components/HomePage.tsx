@@ -20,9 +20,6 @@ export default function HomePage({ settings }: HomePageProps) {
         </p>
         <div className="flex justify-center gap-4">
           <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-xl font-semibold hover:shadow-2xl hover:scale-105 transition-all shadow-lg shadow-blue-500/50">Выбрать услугу!</button>
-          <button className="px-8 py-4 bg-white border-2 border-blue-200 text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-all">
-            Узнать больше
-          </button>
         </div>
       </section>
 
