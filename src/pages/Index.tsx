@@ -142,6 +142,48 @@ function Index() {
     }
   };
 
+  const handleUpdateService = async (serviceData: Service) => {
+    try {
+      await fetch(`${API_URL}?path=service`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(serviceData)
+      });
+      await fetchData();
+      toast({
+        title: "Услуга обновлена",
+        description: "Изменения успешно сохранены",
+      });
+    } catch (error) {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось обновить услугу",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleDeleteService = async (id: number) => {
+    try {
+      await fetch(`${API_URL}?path=service-delete`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+      });
+      await fetchData();
+      toast({
+        title: "Услуга удалена",
+        description: "Услуга успешно удалена",
+      });
+    } catch (error) {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось удалить услугу",
+        variant: "destructive"
+      });
+    }
+  };
+
   const handleUpdateSettings = async (newSettings: { site_name: string; site_description: string }) => {
     try {
       await fetch(`${API_URL}?path=settings`, {
@@ -221,6 +263,8 @@ function Index() {
             onAuth={setIsAdminAuth}
             onUpdateRequest={handleUpdateRequest}
             onCreateService={handleCreateService}
+            onUpdateService={handleUpdateService}
+            onDeleteService={handleDeleteService}
             onUpdateSettings={handleUpdateSettings}
           />
         )}

@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
 
 interface AdminPanelProps {
@@ -16,6 +17,8 @@ interface AdminPanelProps {
   onAuth: (auth: boolean) => void;
   onUpdateRequest: (id: number, status: string, admin_action?: string) => void;
   onCreateService: (service: Omit<Service, 'id' | 'is_active'>) => void;
+  onUpdateService: (service: Service) => void;
+  onDeleteService: (id: number) => void;
   onUpdateSettings: (settings: { site_name: string; site_description: string }) => void;
 }
 
@@ -27,6 +30,8 @@ export default function AdminPanel({
   onAuth,
   onUpdateRequest,
   onCreateService,
+  onUpdateService,
+  onDeleteService,
   onUpdateSettings
 }: AdminPanelProps) {
   const [loginData, setLoginData] = useState({ username: '', password: '' });
@@ -36,6 +41,7 @@ export default function AdminPanel({
     requirements: '',
     price: ''
   });
+  const [editingService, setEditingService] = useState<Service | null>(null);
   const [editSettings, setEditSettings] = useState({
     site_name: settings.site_name,
     site_description: settings.site_description
@@ -51,6 +57,19 @@ export default function AdminPanel({
     if (newService.title && newService.description && newService.requirements && newService.price) {
       onCreateService(newService);
       setNewService({ title: '', description: '', requirements: '', price: '' });
+    }
+  };
+
+  const handleUpdateService = () => {
+    if (editingService) {
+      onUpdateService(editingService);
+      setEditingService(null);
+    }
+  };
+
+  const handleDeleteService = (id: number) => {
+    if (confirm('Вы уверены, что хотите удалить эту услугу?')) {
+      onDeleteService(id);
     }
   };
 
@@ -244,7 +263,27 @@ export default function AdminPanel({
           <div className="grid md:grid-cols-2 gap-4">
             {services.map((service) => (
               <Card key={service.id} className="p-4">
-                <h4 className="font-bold mb-2">{service.title}</h4>
+                <div className="flex items-start justify-between mb-2">
+                  <h4 className="font-bold">{service.title}</h4>
+                  <div className="flex gap-1">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => setEditingService(service)}
+                      className="h-8 w-8 p-0"
+                    >
+                      <Icon name="Pencil" size={16} className="text-blue-600" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => handleDeleteService(service.id)}
+                      className="h-8 w-8 p-0"
+                    >
+                      <Icon name="Trash2" size={16} className="text-red-600" />
+                    </Button>
+                  </div>
+                </div>
                 <p className="text-sm text-gray-600 mb-2">{service.description}</p>
                 <span className="text-blue-600 font-semibold">{service.price}</span>
               </Card>
@@ -282,6 +321,60 @@ export default function AdminPanel({
           </Card>
         </TabsContent>
       </Tabs>
+
+      <Dialog open={!!editingService} onOpenChange={() => setEditingService(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Редактировать услугу</DialogTitle>
+          </DialogHeader>
+          {editingService && (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label>Название</Label>
+                <Input
+                  value={editingService.title}
+                  onChange={(e) =>
+                    setEditingService({ ...editingService, title: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Описание</Label>
+                <Textarea
+                  value={editingService.description}
+                  onChange={(e) =>
+                    setEditingService({ ...editingService, description: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Требования</Label>
+                <Textarea
+                  value={editingService.requirements}
+                  onChange={(e) =>
+                    setEditingService({ ...editingService, requirements: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Цена</Label>
+                <Input
+                  value={editingService.price}
+                  onChange={(e) =>
+                    setEditingService({ ...editingService, price: e.target.value })
+                  }
+                />
+              </div>
+              <Button
+                onClick={handleUpdateService}
+                className="w-full bg-gradient-to-r from-blue-600 to-cyan-500"
+              >
+                Сохранить изменения
+              </Button>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

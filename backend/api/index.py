@@ -124,6 +124,40 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             'body': json.dumps({'id': service_id})
         }
     
+    # Обновить услугу (админ)
+    if method == 'PUT' and path == 'service':
+        body = json.loads(event.get('body', '{}'))
+        cursor.execute('''
+            UPDATE boost_services 
+            SET title = %s, description = %s, requirements = %s, price = %s
+            WHERE id = %s
+        ''', (body['title'], body['description'], body['requirements'], body['price'], body['id']))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return {
+            'statusCode': 200,
+            'headers': headers,
+            'body': json.dumps({'success': True})
+        }
+    
+    # Удалить услугу (админ)
+    if method == 'PUT' and path == 'service-delete':
+        body = json.loads(event.get('body', '{}'))
+        cursor.execute('''
+            UPDATE boost_services 
+            SET is_active = false
+            WHERE id = %s
+        ''', (body['id'],))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return {
+            'statusCode': 200,
+            'headers': headers,
+            'body': json.dumps({'success': True})
+        }
+    
     # Обновить настройки (админ)
     if method == 'PUT' and path == 'settings':
         body = json.loads(event.get('body', '{}'))
